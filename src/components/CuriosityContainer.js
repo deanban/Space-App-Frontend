@@ -9,7 +9,7 @@ export default class CuriosityContainer extends React.Component{
 	}
 
 	componentDidMount(){
-		fetch('http://localhost:3001/curiosity')
+		fetch('http://localhost:3000/curiosities')
 		.then(resp => resp.json())
 		.then(data => this.setState({
 			zdldata: data
@@ -20,12 +20,12 @@ export default class CuriosityContainer extends React.Component{
 	render(){
 		console.log(this.state.zdldata)
 
-		let flobble = this.state.zdldata.map(element => <CuriosityCard key={element.id} img={element.img_src} date={element.earth_date} cam={element.cam_name} />)
-
 		return(
 			<div>
 				<StackGrid columnWidth={150}>
-					{flobble}
+				{console.log('zdl', this.state.zdldata)}
+				
+					{this.state.zdldata.map(element => <CuriosityCard key={element.id} img={element.img_src} date={element.earth_date} cam={element.cam_name} />)}
       			</StackGrid>
       		</div>
 			)
