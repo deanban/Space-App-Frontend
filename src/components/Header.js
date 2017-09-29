@@ -1,9 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 
 
+const Header = (props) => {
 
-const Header = () => {
 
 	console.log('in header')
 	return (		
@@ -15,12 +15,14 @@ const Header = () => {
 		  <a className="item">
 		    <NavLink to="/apod">APOD</NavLink>
 		  </a>
+		  <a className="item">
+		    <NavLink to="/homepage">Homepage</NavLink>
+		  </a>
 		  <div className="right menu">
 		    </div>
 		    <div className="item">
-		    
-		        <div className="ui primary button">Sign In</div>
-		        <div className="ui primary button">Sign Out</div>
+		    	{ localStorage.getItem('jwtToken') ? <div className="ui primary button" onClick={props.handleLogout}>Sign Out</div> : <NavLink className="ui primary button" to="/login">Login</NavLink> }
+		        
 		    </div>
 		  </div>
 		

@@ -9,18 +9,19 @@ import ReactDOM from 'react-dom';
 import { Route, Redirect } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 import { loginUser, logoutUser } from './services/user'
+import HomepageContainer from './components/HomepageContainer'
 
-const Home = () => <CuriosityContainer/>;
+
+const curiosityPage = () => <CuriosityContainer/>;
  
 const Apod = () => <ApodContainer/>;
-
-
 
 class App extends Component {
 
   state = {
     user: {},
-    isLoggedIn: false
+    isLoggedIn: false,
+    id: ''
   }
 
 
@@ -31,7 +32,8 @@ class App extends Component {
         localStorage.setItem("jwtToken", user.jwt)
         this.setState({
           user,
-          isLoggedIn: true
+          isLoggedIn: true,
+          userId: user.user.id
         })
       })
 
@@ -42,7 +44,8 @@ class App extends Component {
     logoutUser()
     this.setState({
       user: null,
-      isLoggedIn: false
+      isLoggedIn: false,
+      userId: null
     })
   }
 
@@ -50,13 +53,15 @@ class App extends Component {
     return (
 
       <div>
-          <Header/>
+          <Header handleLogout={this.logout} />
           {/*<img src={logo} className="App-logo" alt="logo" />}*/}
 
       <div>
-        <Route exact path="/" component={Home}/>
+        <Route exact path="/" component={curiosityPage}/>
         
         <Route exact path="/apod" component={Apod}/>
+        <Route exact path="/homepage" render={() => <HomepageContainer userid={this.state.userId}/>}/>
+
         <Route exact path="/login" render={()=><LoginForm onLogin={this.login}/>}/>
         </div>
         
