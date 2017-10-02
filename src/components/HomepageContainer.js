@@ -12,7 +12,6 @@ class HomepageContainer extends React.Component {
 		if (this.props.userId) {
 			fetch(`http://localhost:3000/users/${this.props.userId}`)
 			.then(resp => resp.json())
-			.then(res => {debugger})
 			.then(img => this.setState({
 				favImages: img
 			}))
@@ -21,6 +20,7 @@ class HomepageContainer extends React.Component {
 	}
 
 	render() {
+		{console.log(this.props)}
 		return (
 			<div>
 				

@@ -14,18 +14,17 @@ class LoginForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
     console.log("Clicking Button", this.state.username, this.state.password)
-    // send some api call to the backend
-    // clear fields
 
     if(this.state.username && this.state.password){
       const loginParams = { username: this.state.username, password: this.state.password}
+      
       this.props.onLogin(loginParams)
       this.setState({
         username: "",
         password: ""
       })
-    }
 
+    }
   }
 
 
@@ -46,7 +45,6 @@ class LoginForm extends React.Component {
   render() {
 
     console.log("RENDERING", this)
-    // ARE WE LOGGED IN
       return (
         <form onSubmit={this.handleSubmit}>
           <input type="text" placeholder="username" onChange={this.handleUsernameChange} value={this.state.username}/>

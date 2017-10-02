@@ -8,9 +8,13 @@ const CuriosityCard = (props) =>{
 		height: "150px",
 		width: "150px"
 	}
+
 	return(
-			
-			<img style={style} src={props.img}/>
+			<div id={props.id}>
+				<img style={style} src={props.img}/>
+				{ localStorage.getItem('jwtToken') ? <button className={props.user_id} id={props.id} onClick={props.handleLike}>Like</button> : null}
+				
+			</div>
 			
 	)
 
