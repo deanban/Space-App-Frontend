@@ -20,7 +20,7 @@ const Apod = () => <ApodContainer/>;
 class App extends Component {
 
   state = {
-    user: {},
+    user: '',
     isLoggedIn: false,
     id: ''
   }
@@ -28,15 +28,14 @@ class App extends Component {
 
   login = (loginParams) => {
     loginUser(loginParams)
-      .then((user) => {
-        localStorage.setItem("jwtToken", user.jwt)
+      .then((resp) => {
+        localStorage.setItem("jwtToken", resp.jwt)
         this.setState({
-          user,
+          user: resp,
           isLoggedIn: true,
-          id: user.id
+          id: resp.user.id
         })
       })
-
   }
 
   logout = () => {
@@ -52,16 +51,17 @@ class App extends Component {
   render() {
       const AuthHomepageContainer = Authorize(HomepageContainer)
       const AuthLoginForm = Authorize(LoginForm)
+    
       return (
 
         <div>
             <Header handleLogout={this.logout} />
 
             <div> 
-              <Route exact path="/" render={(props) => <CuriosityContainer user_id={this.state} />} />
+              <Route exact path="/" render={(props) => <CuriosityContainer userid={this.state.id} />} />
               {/* IF NOT LOGGED IN CANT GET TO BELOW */}
               <Route exact path="/apod" component={Apod}/>
-              <Route exact path="/homepage" render={(props) => <AuthHomepageContainer userid={this.state.userId} {...props}/>}/>
+              <Route exact path="/homepage" render={(props) => <AuthHomepageContainer userid={this.state.id} {...props} />}/>
 
               <Route exact path="/login" render={(props)=><AuthLoginForm onLogin={this.login} {...props} />}/>
             </div>

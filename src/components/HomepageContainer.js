@@ -1,33 +1,68 @@
 import React from 'react'
 import StackGrid from "react-stack-grid"
+import HomepageCard from './HomepageCard'
+
 
 class HomepageContainer extends React.Component {
 
 	state = {
-		favImages: []
+		favImages: [],
 	}
 
+
+
 	componentDidMount() {
-		console.log('mounted', this.props)
-		if (this.props.userId) {
-			fetch(`http://localhost:3000/users/${this.props.userId}`)
-			.then(resp => resp.json())
-			.then(img => this.setState({
-				favImages: img
-			}))
+
+	console.log('mounted')
+	fetch("http://localhost:3000/users/1", {
+		    method: 'get',
+		    headers: {
+		      "Authorization": localStorage.getItem('jwtToken')
+		    }
+		  })
+	.then(resp => resp.json())
+	.then(img => this.setState({
+		favImages: img.curiosities
+	}))
+	}
+
+	handleUnlike = (event) => {
+		let body = {
+			picture_id: parseInt(event.target.dataset.id)
 		}
-		
+
+		body = JSON.stringify(body)
+
+		fetch(`http://localhost:3000/users/nolikes`, {
+		    method: 'post',
+		    body: body,
+		    headers: {
+		      "Accept":"application/json",
+		      "Content-Type":"application/json",
+		      "Authorization": localStorage.getItem('jwtToken')
+		    }
+		  })
+
+		let favs = this.state.favImages
+
+		this.setState({
+			favImages: favs.filter(img => img.id !== parseInt(event.target.dataset.id))
+		})
+
+
 	}
 
 	render() {
-		{console.log(this.props)}
 		return (
 			<div>
-				
+				<StackGrid columnWidth={150}>
+					{this.state.favImages.map(favImg => <HomepageCard imgId={favImg.id} img={favImg.img_src} handleUnlike={this.handleUnlike}/>)}
+				</StackGrid>
 			</div>
 		)
 	}
 
 }
 
+// this.state.favImages.map(img => <CuriosityCard src={img.img_src} />)
 export default HomepageContainer

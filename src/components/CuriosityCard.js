@@ -2,22 +2,35 @@ import React from 'react'
 import StackGrid from "react-stack-grid"
 
 
-const CuriosityCard = (props) =>{
+class CuriosityCard extends React.Component {
 
-	const style = {
+	state = {
+		liked: ''
+	}
+
+	style = {
 		height: "150px",
 		width: "150px"
 	}
 
-	return(
-			<div id={props.id}>
-				<img style={style} src={props.img}/>
-				{ localStorage.getItem('jwtToken') ? <button className={props.user_id} id={props.id} onClick={props.handleLike}>Like</button> : null}
-				
-			</div>
-			
-	)
+	componentDidMount() {
+		this.setState({
+			liked: this.props.liked
+		})
+	}
+
+	render () {
+
+		return (
+
+			<div id={this.props.id}>
+				<img style={this.style} src={this.props.img}/>
+				{ !this.state.liked ? <button data-id={this.props.userid} id={this.props.id} onClick={this.props.handleLike}>Like</button> : <button data-id={this.props.userid} id={this.props.id} onClick={this.props.handleLike}>unlike</button>}
+			</div>)
+	}
 
 }	
 
 export default CuriosityCard
+
+//				{ localStorage.getItem('jwtToken') ? <button data-id={this.props.userid} id={this.props.id} onClick={this.props.handleLike}>Like</button> : null}			
