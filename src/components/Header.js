@@ -34,6 +34,9 @@ const Header = (props) => {
 		  <a className="item">
 		    <NavLink to="/homepage">Homepage</NavLink>
 		  </a>
+		  <a className="item">
+		    <NavLink to="/asteroids">Asteroid</NavLink>
+		  </a>
 
 		  <div className="right menu">
 				{props.name ? <div className="item">

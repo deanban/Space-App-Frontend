@@ -2,7 +2,7 @@ import React from 'react'
 import StackGrid from "react-stack-grid"
 
 
-class displayCard extends React.Component {
+class DisplayCard extends React.Component {
 
 	state = {
 		liked: ''
@@ -38,4 +38,4 @@ class displayCard extends React.Component {
 
 }
 
-export default displayCard
+export default DisplayCard

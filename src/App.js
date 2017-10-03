@@ -12,7 +12,7 @@ import { loginUser, logoutUser } from './services/user'
 import HomepageContainer from './components/HomepageContainer'
 import Authorize from './components/Authorize'
 import Signup from './components/Signup'
-
+import AsteroidContainer from './components/AsteroidContainer'
 
 
 
@@ -60,6 +60,7 @@ class App extends Component {
             <Header handleLogout={this.logout} name={this.state.name} />
 
             <div>
+              <Route exact path="/asteroids" render={ () => <AsteroidContainer/> }/>
               <Route exact path="/" render={(props) => <CuriosityContainer userid={this.state.id} />} />
               {/* IF NOT LOGGED IN CANT GET TO BELOW */}
               <Route exact path="/apod" component={Apod}/>
