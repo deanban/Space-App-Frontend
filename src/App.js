@@ -11,10 +11,11 @@ import LoginForm from './components/LoginForm'
 import { loginUser, logoutUser } from './services/user'
 import HomepageContainer from './components/HomepageContainer'
 import Authorize from './components/Authorize'
+import Signup from './components/Signup'
 
 
 
- 
+
 const Apod = () => <ApodContainer/>;
 
 class App extends Component {
@@ -24,7 +25,7 @@ class App extends Component {
     isLoggedIn: false,
     id: ''
   }
- 
+
 
   login = (loginParams) => {
     loginUser(loginParams)
@@ -33,7 +34,7 @@ class App extends Component {
         this.setState({
           user: resp,
           isLoggedIn: true,
-          id: resp.user.id
+          name: resp.user.username
         })
       })
   }
@@ -44,33 +45,34 @@ class App extends Component {
     this.setState({
       user: null,
       isLoggedIn: false,
-      id: null
+      id: null,
+      name: null
     })
   }
 
   render() {
       const AuthHomepageContainer = Authorize(HomepageContainer)
       const AuthLoginForm = Authorize(LoginForm)
-    
+
       return (
 
         <div>
-            <Header handleLogout={this.logout} />
+            <Header handleLogout={this.logout} name={this.state.name} />
 
-            <div> 
+            <div>
               <Route exact path="/" render={(props) => <CuriosityContainer userid={this.state.id} />} />
               {/* IF NOT LOGGED IN CANT GET TO BELOW */}
               <Route exact path="/apod" component={Apod}/>
               <Route exact path="/homepage" render={(props) => <AuthHomepageContainer userid={this.state.id} {...props} />}/>
 
               <Route exact path="/login" render={(props)=><AuthLoginForm onLogin={this.login} {...props} />}/>
+              <Route exact path="/signup" render={(props)=><Signup />}/>
             </div>
-          
+
         </div>
-      ); 
-    
+      );
+
   }
 }
 
 export default App;
-

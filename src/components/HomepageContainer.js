@@ -1,12 +1,13 @@
 import React from 'react'
 import StackGrid from "react-stack-grid"
-import HomepageCard from './HomepageCard'
+import DisplayCard from './DisplayCard'
 
 
 class HomepageContainer extends React.Component {
 
 	state = {
 		favImages: [],
+		imageSelected: false
 	}
 
 
@@ -28,7 +29,7 @@ class HomepageContainer extends React.Component {
 
 	handleUnlike = (event) => {
 		let body = {
-			picture_id: parseInt(event.target.dataset.id)
+			picture_id: parseInt(event.target.id)
 		}
 
 		body = JSON.stringify(body)
@@ -46,9 +47,8 @@ class HomepageContainer extends React.Component {
 		let favs = this.state.favImages
 
 		this.setState({
-			favImages: favs.filter(img => img.id !== parseInt(event.target.dataset.id))
+			favImages: favs.filter(img => img.id !== parseInt(event.target.id))
 		})
-
 
 	}
 
@@ -56,7 +56,12 @@ class HomepageContainer extends React.Component {
 		return (
 			<div>
 				<StackGrid columnWidth={150}>
-					{this.state.favImages.map(favImg => <HomepageCard imgId={favImg.id} img={favImg.img_src} handleUnlike={this.handleUnlike}/>)}
+					{this.state.favImages.map(favImg => <DisplayCard
+					id={favImg.id}
+					img={favImg.img_src}
+					handleUnlike={this.handleUnlike}
+					liked="true"
+					/>)}
 				</StackGrid>
 			</div>
 		)

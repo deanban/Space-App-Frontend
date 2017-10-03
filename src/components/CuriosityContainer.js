@@ -1,5 +1,5 @@
 import React from 'react'
-import CuriosityCard from './CuriosityCard'
+import DisplayCard from './DisplayCard'
 import StackGrid from "react-stack-grid"
 
 export default class CuriosityContainer extends React.Component{
@@ -32,7 +32,7 @@ export default class CuriosityContainer extends React.Component{
 	}
 
 	handleLike = (event) => {
-
+		console.log('like button clicked')
 		let body = {
 			picture_id: parseInt(event.target.id),
 			user_id: parseInt(event.target.dataset.id)
@@ -49,12 +49,45 @@ export default class CuriosityContainer extends React.Component{
 		      "Content-Type":"application/json",
 		      "Authorization": localStorage.getItem('jwtToken')
 		    }
-		  }
-		)
-  	}
+		  })
+			console.log(this.state, body.picture_id, parseInt(event.target.id))
+			let newImage = this.state.zdldata.find(img => img.id == parseInt(event.target.id))
+			let newFavs = [...this.state.favImages, newImage]
+
+			this.setState({
+				favImages: newFavs
+			})
+		}
 
   	checkImage = (elementId) => {
-  		return (this.state.favImages.find(elem => elementId == elem.id) ? true : false)
+			if (localStorage.getItem('jwtToken')) {
+				return (this.state.favImages.find(elem => elementId == elem.id))
+			}
+	}
+
+	handleUnlike = (event) => {
+		let body = {
+			picture_id: parseInt(event.target.id)
+		}
+
+		body = JSON.stringify(body)
+
+		fetch(`http://localhost:3000/users/nolikes`, {
+		    method: 'post',
+		    body: body,
+		    headers: {
+		      "Accept":"application/json",
+		      "Content-Type":"application/json",
+		      "Authorization": localStorage.getItem('jwtToken')
+		    }
+		  })
+
+		let favs = this.state.favImages.filter(img => img.id !== parseInt(event.target.id))
+
+		this.setState({
+			favImages: favs
+		})
+
 	}
 
 
@@ -63,15 +96,17 @@ export default class CuriosityContainer extends React.Component{
 		return(
 			<div>
 				<StackGrid columnWidth={150}>
-				
-					{this.state.zdldata.map(element => <CuriosityCard 
+
+					{this.state.zdldata.map(element => <DisplayCard
 						id={element.id}
-						img={element.img_src} 
-						date={element.earth_date} 
+						img={element.img_src}
+						date={element.earth_date}
 						cam={element.cam_name}
 						userid={this.state.userid}
 						liked={this.checkImage(element.id) ? true : false}
-						handleLike={this.handleLike} />)
+						handleLike={this.handleLike}
+						handleUnlike={this.handleUnlike}
+						/>)
 					}
 
       			</StackGrid>

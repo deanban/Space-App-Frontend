@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
 
     if(this.state.username && this.state.password){
       const loginParams = { username: this.state.username, password: this.state.password}
-      
+
       this.props.onLogin(loginParams)
       this.setState({
         username: "",
