@@ -94,22 +94,20 @@ export default class CuriosityContainer extends React.Component{
 	render(){
 		console.log("at container", this.props.userid)
 		return(
-			<div>
-				<StackGrid columnWidth={150}>
-
-					{this.state.zdldata.map(element => <DisplayCard
-						id={element.id}
-						img={element.img_src}
-						date={element.earth_date}
-						cam={element.cam_name}
-						userid={this.state.userid}
-						liked={this.checkImage(element.id) ? true : false}
-						handleLike={this.handleLike}
-						handleUnlike={this.handleUnlike}
-						/>)
-					}
-
-      			</StackGrid>
+			<div className="ui cards">
+				
+				{this.state.zdldata.map(element => <DisplayCard
+					id={element.id}
+					img={element.img_src}
+					date={element.earth_date}
+					cam={element.cam_name}
+					userid={this.state.userid}
+					liked={this.checkImage(element.id) ? true : false}
+					handleLike={this.handleLike}
+					handleUnlike={this.handleUnlike}
+					/>)
+				}
+      			
       		</div>
 		)
 	}

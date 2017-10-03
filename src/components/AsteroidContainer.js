@@ -19,8 +19,8 @@ class AsteroidContainer extends React.Component{
 	}
 
 	render(){
-		return( <div>
-					<StackGrid columnWidth={180}>
+		return( <div class="ui cards">
+					
 						{this.state.data.map(element => <AsteroidCard 
 							name = {element.name}
 							url = {element.nasa_jpl_url}
@@ -32,7 +32,7 @@ class AsteroidContainer extends React.Component{
 							relative_velocity = {element.relative_velocity}
 							/>
 						)}
-					</StackGrid>
+				
 				</div>)
 	}
 }

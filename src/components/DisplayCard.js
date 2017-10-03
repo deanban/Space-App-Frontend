@@ -21,7 +21,7 @@ class DisplayCard extends React.Component {
 
 	showButton = () => {
 		if (localStorage.getItem('jwtToken')) {
-			return this.props.liked ? <button data-id={this.props.userid} id={this.props.id} onClick={this.props.handleUnlike}>Unlike</button> : <button data-id={this.props.userid} id={this.props.id} onClick={this.props.handleLike}>Like</button>
+			return this.props.liked ? <button className="negative ui button" data-id={this.props.userid} id={this.props.id} onClick={this.props.handleUnlike}>Unlike</button> : <button className="positive ui button" data-id={this.props.userid} id={this.props.id} onClick={this.props.handleLike}>Like</button>
 		}
 	}
 
@@ -30,9 +30,13 @@ class DisplayCard extends React.Component {
 
 		return (
 
-			<div id={this.props.id}>
-				<img style={this.style} src={this.props.img}/>
+			<div className="ui card" id={this.props.id}>
+				<div className="image"> 
+				<img  src={this.props.img}/>
+				</div>
+				<div className="content">
 				{this.showButton()}
+				</div>
 			</div>)
 	}
 

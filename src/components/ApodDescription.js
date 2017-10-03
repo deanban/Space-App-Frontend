@@ -1,9 +1,15 @@
 import React from 'react'
 
 const ApodDescription = (props) => {
-	console.log(props)
+
+	var style = {
+		width: '75%',
+		'text-align': 'center',
+    	margin:'auto'
+	}
+
 	return(
-		<div>
+		<div style={style}>
 			{props.explanation}
 		</div>
 		)
