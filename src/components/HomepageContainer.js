@@ -54,15 +54,15 @@ class HomepageContainer extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<StackGrid columnWidth={150}>
+			<div className="ui cards">
+				
 					{this.state.favImages.map(favImg => <DisplayCard
 					id={favImg.id}
 					img={favImg.img_src}
 					handleUnlike={this.handleUnlike}
 					liked="true"
 					/>)}
-				</StackGrid>
+			
 			</div>
 		)
 	}

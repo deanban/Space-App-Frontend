@@ -7,10 +7,14 @@ function Authorize(RenderedComponent, props) {
 		render() {
 			console.log("Rendering from authorize")
 
-			if (localStorage.getItem('jwtToken') && this.props.location.pathname === "/login") {
+			if (localStorage.getItem('jwtToken') && (this.props.location.pathname === "/login" || this.props.location.pathname === "/signup")) {
 				console.log("Logged in but on login")
 				return (<Redirect to="/homepage" />)
-			} else if (!localStorage.getItem('jwtToken') && this.props.location.pathname !== "/login") {
+			}else if (this.props.location.pathname === "/signup") {
+				console.log("Not logged in")
+				return (<Redirect to="/homepage"/>)
+			} 
+			else if (!localStorage.getItem('jwtToken') && this.props.location.pathname !== "/login") {
 				console.log("Not logged in")
 				return (<Redirect to="/login"/>)
 			} else {

@@ -13,7 +13,7 @@ import HomepageContainer from './components/HomepageContainer'
 import Authorize from './components/Authorize'
 import Signup from './components/Signup'
 import AsteroidContainer from './components/AsteroidContainer'
-
+import Footer from './components/Footer'
 
 
 const Apod = () => <ApodContainer/>;
@@ -25,7 +25,6 @@ class App extends Component {
     isLoggedIn: false,
     id: ''
   }
-
 
   login = (loginParams) => {
     loginUser(loginParams)
@@ -53,13 +52,16 @@ class App extends Component {
   render() {
       const AuthHomepageContainer = Authorize(HomepageContainer)
       const AuthLoginForm = Authorize(LoginForm)
+      const style =  {
+        'min-height': 'calc(100vh - 120px)'
+      }
 
       return (
 
         <div>
             <Header handleLogout={this.logout} name={this.state.name} />
 
-            <div>
+            <div style={style}>
               <Route exact path="/asteroids" render={ () => <AsteroidContainer/> }/>
               <Route exact path="/" render={(props) => <CuriosityContainer userid={this.state.id} />} />
               {/* IF NOT LOGGED IN CANT GET TO BELOW */}
@@ -69,7 +71,9 @@ class App extends Component {
               <Route exact path="/login" render={(props)=><AuthLoginForm onLogin={this.login} {...props} />}/>
               <Route exact path="/signup" render={(props)=><Signup />}/>
             </div>
-
+            <div>
+              <Footer/>
+            </div>
         </div>
       );
 
