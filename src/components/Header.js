@@ -8,7 +8,8 @@ const Header = (props) => {
 	// const login = <NavLink className="ui primary button" to="/login">Login</NavLink>
 	// const signup = <NavLink className="ui primary button" to="/login">Sign up</NavLink>
 	const logsign = <div><NavLink className="ui primary button" to="/login">Login</NavLink> <NavLink className="ui primary button" to="/signup">Sign up</NavLink></div>
-
+	const demoButton = <div><NavLink className="ui primary button" to="/login">DEMO</NavLink></div>
+	
 	const logButtons = () => {
 		if (localStorage.getItem('jwtToken')) {
 			return logout

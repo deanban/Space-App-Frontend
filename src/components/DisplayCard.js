@@ -25,14 +25,20 @@ class DisplayCard extends React.Component {
 		}
 	}
 
+	handleExpand = (event) => {
+		console.log('clicked')
+
+		debugger
+	}
+
 	render () {
 		{console.log('render displaycard')}
 
 		return (
 
 			<div className="ui card" id={this.props.id}>
-				<div className="image"> 
-				<img  src={this.props.img}/>
+				<div className="image">
+					<img src={this.props.img} />
 				</div>
 				<div className="content">
 				{this.showButton()}

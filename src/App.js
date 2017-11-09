@@ -14,6 +14,7 @@ import Authorize from './components/Authorize'
 import Signup from './components/Signup'
 import AsteroidContainer from './components/AsteroidContainer'
 import Footer from './components/Footer'
+import NewApodContainer from './components/NewApodContainer'
 
 
 const Apod = () => <ApodContainer/>;
@@ -70,6 +71,7 @@ class App extends Component {
 
               <Route exact path="/login" render={(props)=><AuthLoginForm onLogin={this.login} {...props} />}/>
               <Route exact path="/signup" render={(props)=><Signup />}/>
+              <Route exact path="/newa" component={NewApodContainer}/>
             </div>
             <div>
               <Footer/>
